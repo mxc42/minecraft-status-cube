@@ -1,4 +1,4 @@
-#!/home/morgan/projects/minecraft-status-cube/env/bin/python3
+#!/home/pi/minecraft-status-cube/env/bin/python3
 
 """Simple FTDI EEPROM configurator.
 """
