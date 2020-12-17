@@ -46,7 +46,7 @@ def rainbow_cycle(wait):
 
 while True:
     # Comment this line out if you have RGBW/GRBW NeoPixels
-    pixels.fill((255, 0, 0))
+    pixels.fill((0, 0, 0))
     pixels.show()
     time.sleep(1)
 
