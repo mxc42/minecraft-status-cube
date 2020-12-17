@@ -1,0 +1,1 @@
+To disable the status and power leds on startup, I placed the lights-off.sh script in `/etc/init.d/`. Make it executable by running `sudo chmod +x lights-off.sh`. Then, while in the init.d directory, run `sudo update-rc.d lights-off.sh defaults`.
