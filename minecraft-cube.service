@@ -1,0 +1,9 @@
+[Unit]
+Description=Lights controller for the pi cube.
+
+[Service]
+WorkingDirectory=/home/pi/minecraft-status-cube
+ExecStart=/home/pi/minecraft-status-cube/run.sh
+
+[Install]
+WantedBy=multi-user.target
