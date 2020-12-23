@@ -3,6 +3,12 @@ import board
 import neopixel
 from mcstatus import MinecraftServer
 
+colors = {
+    'mxc42': (70, 221, 255),
+    'starflash1000200': (245, 117, 66),
+    'Wilaphant': (18, 255, 22)
+}
+
 # Server config.
 server_hostname = "mc.mxc42.com"
 # The port for the query server is running on a different port than the world server.
@@ -10,7 +16,7 @@ server_port = 4243
 # Make a server object with the right connection properties.
 server = MinecraftServer(server_hostname, server_port)
 # Frequency of server queries (in seconds).
-refresh_delay = 30
+refresh_delay = 5
 
 # Brightness of the LEDs.
 bright = 0.5
@@ -59,30 +65,41 @@ def rainbow_cycle(wait):
         time.sleep(wait)
 
 
-def assign_colors(names: list):
-    if not names:
-        return (0, 0, 0)
+def blank_colors():
+    pixels.fill((0, 0, 0))
+    pixels.show()
+    pixels.show()
 
-    segments = num_pixels / len(list)
+
+def set_colors(names: list):
+    if not names:
+        blank_colors()
+        return
+
+    num_online = len(names)
+    for i in range(num_pixels):
+        pixels[i] = colors[names[i % num_online]]
+
+    pixels.show()
+    pixels.show()
 
 
 def main():
-    currentState: list
+    currentState: list = []
+    blank_colors()
 
     while True:
         try:
             query = server.query()
             print(query.players.names)
-            if (set(query.players.names) == set(currentState)):
+            if (set(query.players.names) != set(currentState)):
                 currentState = query.players.names
-                assign_colors(currentState)
-                #pixels.fill((0, 0, 0))
-                # pixels.show()
+                set_colors(currentState)
 
         except Exception as e:
-            print("Failed: " + e)
+            print(e)
         finally:
             time.sleep(refresh_delay)
 
 
-assign_colors(['mxc42'])
+main()
